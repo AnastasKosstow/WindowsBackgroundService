@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 
-namespace WindowsBackgroundService
+namespace WorkerService
 {
     public class Program
     {

@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WindowsBackgroundService
+namespace WorkerService
 {
     public class Worker : BackgroundService
     {

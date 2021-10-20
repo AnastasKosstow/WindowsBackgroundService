@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>dotnet-WindowsBackgroundService-43B4F315-14D0-4F59-A47F-89C079D9A60A</UserSecretsId>
+    <UserSecretsId>dotnet-WorkerService-47ABC7B0-A9EE-4271-A015-589AF02BC16D</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
