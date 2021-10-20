@@ -15,7 +15,7 @@ namespace WorkerService
         private IList<string> Urls = new List<string>
         {
             "https://www.google.com",
-            "https://www.somefakeurl.com/"
+            "https://www.somefakeurl.com"
         };
 
         public Worker(

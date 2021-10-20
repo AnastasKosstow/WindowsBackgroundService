@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace WorkerService
 {
@@ -15,8 +16,13 @@ namespace WorkerService
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    Log.Logger = new LoggerConfiguration()
+                        .ReadFrom
+                        .Configuration(hostContext.Configuration)
+                        .CreateLogger();
                     services.AddHttpClient();
                     services.AddHostedService<Worker>();
                 });
