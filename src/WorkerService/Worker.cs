@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,14 +12,14 @@ namespace WorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
-        private IList<string> Urls = new List<string> 
-        { 
-            "https://www.google.com", 
-            "https://www.somefakeurl.com/" 
+        private IList<string> Urls = new List<string>
+        {
+            "https://www.google.com",
+            "https://www.somefakeurl.com/"
         };
 
         public Worker(
-            ILogger<Worker> logger, 
+            ILogger<Worker> logger,
             IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
@@ -31,7 +30,14 @@ namespace WorkerService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
-                await PollUrls();
+                try
+                {
+                    await PollUrls();
+                }
+                finally
+                {
+                    await Task.Delay(2000, stoppingToken);
+                }
         }
 
 
@@ -53,13 +59,13 @@ namespace WorkerService
 
                 if (response.IsSuccessStatusCode)
                     _logger.LogInformation($"{url} is online.");
-                
+
                 else
                     _logger.LogWarning($"{url} is offline.");
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogWarning(ex, $"{url} is offline.");
+                _logger.LogWarning($"{url} is offline.");
             }
         }
     }
