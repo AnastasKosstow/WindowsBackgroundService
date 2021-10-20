@@ -14,8 +14,15 @@ namespace WorkerService
                 .RunAsync();
         }
 
+        // To use the background service as windows service
+        // Install package -> Microsoft.Extensions.Hosting.WindowsServices
+
+        // To start the service:
+        // PowerShell -> New-Service -Name {SERVICE NAME} -BinaryPathName "{EXE FILE PATH}" -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseWindowsService() // Add this extension to use the app as windows service
                 .UseSerilog()
                 .ConfigureServices((hostContext, services) =>
                 {
