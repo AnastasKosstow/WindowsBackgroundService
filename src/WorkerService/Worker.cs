@@ -1,26 +1,21 @@
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using WorkerService.RabbitMq;
 
 namespace WorkerService
 {
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly IWorkerServicePublisher _workerServicePublisher;
 
-        public Worker(ILogger<Worker> logger)
-        {
-            _logger = logger;
-        }
+        public Worker(IWorkerServicePublisher workerServicePublisher)
+            => _workerServicePublisher = workerServicePublisher;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
             }
         }
     }
